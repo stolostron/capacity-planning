@@ -44,7 +44,7 @@ We need the following information to calculate the resources required to run ACM
 
 
 ### Methodology of calculation
-Each managed cluster and ACM applications and policies created on it creates corresponding objects on the Kuberenetes APIServer of the ACM hub. As the number of managed cluster and corresponding applications and policies grow, the load on the Kuberenetes APIServer increases. There is a finite limit on how big this footprint on APIServer can be - this is mainly governed by the size of database backing the APIServer ie etcd.
+Each managed cluster and ACM applications and policies created on it creates corresponding objects on the Kubernetes APIServer of the ACM hub. As the number of managed cluster and corresponding applications and policies grow, the load on the Kubernetes APIServer increases. There is a finite limit on how big this footprint on APIServer can be - this is mainly governed by the size of database backing the APIServer ie etcd.
 
 1. Check if the specified load profile is in danger of crossing this limit. That will merit more than 1 ACM hub
 1. Check if the specified load profile merits a highly performant etcd system backed ie backed by NVMe disks
