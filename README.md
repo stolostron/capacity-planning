@@ -1,5 +1,7 @@
 # ACM Capacity-planning
 Our goal is to helps to create Capacity recommendation for ACM and Capacity recommendation for ACM Observability only.
+- If this a brown field set up where the customer has a ACM hub running with a few real clusters being managed under it, we could use [ACM Inspector](https://github.com/bjoydeep/acm-inspector) to extract some data out of the system to give a recommendation.
+- If this is a green field set up where the customer has no ACM running at all, proceed to read below. 
 
 ## ACM Observability Sizing
 
@@ -28,7 +30,11 @@ We need the following information to calculate the resources required to run Obs
     1. Disk needed for PVs (volume of data stored is dictated by settings in MultiCluster Observability CR)
     1. Storage needed for Object store (volume of data stored is dictated by settings in MultiCluster Observability CR)
 
-
+### Calculator
+- Use this [pythonNotebook](/calculation/ObsSizingTemplate.ipynb).
+- Substitute the values in the notebook under section:
+`Critical Input Parameters to Size` with values described above.
+- Then run the notebook. It will produce the recommendations.
 ## ACM Sizing
 We need the following information to calculate the resources required to run ACM. Observability sizing is `not` included here.
 
@@ -50,3 +56,6 @@ Each managed cluster and ACM applications and policies created on it creates cor
 1. Check if the specified load profile merits a highly performant etcd system backed ie backed by NVMe disks
 1. If topology of Hub Server is 3M+3W, check for corresponding data samples to size/project.
 1. If topology of Hub Server is 3M, check for corresponding data samples to size/project.
+
+### Calculator
+This is manual as of now. Please reach out the Engineering team for this.
