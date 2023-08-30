@@ -1,12 +1,21 @@
 # ACM Capacity-planning
 Our goal is to helps to create Capacity recommendation for ACM and Capacity recommendation for ACM Observability only.
-- If this a brown field set up where the customer has a ACM hub running with a few real clusters being managed under it, we could use [ACM Inspector](https://github.com/bjoydeep/acm-inspector) to extract some data out of the system to give a recommendation.
-- If this is a green field set up where the customer has no ACM running at all, proceed to read below. 
+Need for capacity planning greatly varies. It depends on the scenario as explained below:
+
+
+
+||Setup|Action|Red Hat recommends
+|---|---|---|---|
+|1.|Existing (brown field) set up: ACM hub is running with a few real clusters being managed under it| Use [ACM Inspector](https://github.com/bjoydeep/acm-inspector) to extract data out of the system.|ACM team can recommend based on this output and number of clusters the Hub will have to manage etc. This is a fairly quick `manual` process for a now - a tool will be shortly published.|
+|2.|No ACM running (green field) but clusters that would be managed exists| Use [Metrics Extractor](https://github.com/stolostron/multicluster-observability-operator/tree/main/tools/simulator/metrics-collector/metrics-extractor) to extract the metrics out of the system. Use [Search resource extractor](https://github.com/stolostron/search-v2-operator/blob/main/tools/resource-extractor.sh) to extract the search objects that would be collected.| ACM team can size Observability & Search & ACM management needs based on this data and number of clusters it will manage etc. Observability sizings can be done using this data and [this notebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount.ipynb). We are working on a similar tool for search.|
+|3.|No ACM running (green field) and clusters that would be managed does not exist| Proceed to read below.| This the most complex case out of all.|
 
 ## ACM Observability Sizing
 
 ### Inputs Needed
 We need the following information to calculate the resources required to run Observability on top of ACM.
+
+#### Either
 
 1. number_of_managed_clusters: say 100
 1. number_of_master_node_in_hub_cluster: say 3
@@ -19,6 +28,11 @@ We need the following information to calculate the resources required to run Obs
 1. number_of_hours_pv_retention_hrs:24. This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
 1. number_of_days_for_storage:365. This the amount of days of retention in the object store.
 
+#### Or
+1. Number of timeseries from Setup #2 above
+1. number_of_samples_per_hour:12. This means metric will be sent every 5 min.
+1. number_of_hours_pv_retention_hrs:24. This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
+1. number_of_days_for_storage:365. This the amount of days of retention in the object store.
 
 ### Methodology of Calculation
 1. Firstly we have to calculate how many time series do we need to persist. This is calculated in 2 steps.
