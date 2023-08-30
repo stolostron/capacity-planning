@@ -8,7 +8,7 @@ Need for capacity planning greatly varies. It depends on the scenario as explain
 |---|---|---|---|
 |1.|Existing (brown field) set up: ACM hub is running with a few real clusters being managed under it| Use [ACM Inspector](https://github.com/bjoydeep/acm-inspector) to extract data out of the system.|ACM team can recommend based on this output and number of clusters the Hub will have to manage etc. This is a fairly quick `manual` process for a now - a tool will be shortly published.|
 |2.|No ACM running (green field) but clusters that would be managed exists| Use [Metrics Extractor](https://github.com/stolostron/multicluster-observability-operator/tree/main/tools/simulator/metrics-collector/metrics-extractor) to extract the metrics out of the system. Use [Search resource extractor](https://github.com/stolostron/search-v2-operator/blob/main/tools/resource-extractor.sh) to extract the search objects that would be collected.| ACM team can size Observability & Search & ACM management needs based on this data and number of clusters it will manage etc. Observability sizings can be done using this data and [this notebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount.ipynb). We are working on a similar tool for search.|
-|3.|No ACM running (green field) and clusters that would be managed does not exist| Proceed to read below.| This the most complex case out of all.|
+|3.|No ACM running (green field) and clusters that would be managed does not exist| Proceed to read below.| This the most complex case of all.|
 
 ## ACM Observability Sizing
 
