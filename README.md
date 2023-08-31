@@ -1,5 +1,5 @@
 # ACM Capacity-planning
-Our goal is to helps to create Capacity recommendation for ACM and Capacity recommendation for ACM Observability only.
+Our goal is to help to create capacity recommendation for ACM and capacity recommendation for ACM Observability only.
 Need for capacity planning greatly varies. It depends on the scenario as explained below:
 
 
@@ -12,23 +12,31 @@ Need for capacity planning greatly varies. It depends on the scenario as explain
 
 ## ACM Observability Sizing
 
+- Use this [pythonNotebook](/calculation/ObsSizingTemplate.ipynb).
+- Substitute the values in the notebook under section:
+`Critical Input Parameters to Size` with values described below.
+- Then run the notebook. It will produce the recommendations.
+
 ### Inputs Needed
-We need the following information to calculate the resources required to run Observability on top of ACM.
+We need the following information to calculate the resources required to run Observability on top of ACM. There's 2 options as described below.
 
-#### Either
+#### Option 1
 
-1. number_of_managed_clusters: say 100
-1. number_of_master_node_in_hub_cluster: say 3
-1. number_of_addn_worker_nodes: say 47 and we assume these are above the base number: 3
-1. number_of_vcore_per_node: say 16
-1. number_of_application_pods_per_node: say 20. This is for the application and not ACM/Openshift workload.
-1. number_of_namespaces: say 20. These are namespaces that will be created by the customer outside what is created by ACM/Openshift workload.
-1. number_of_container_per_pod:1. Do not change this as of now.
-1. number_of_samples_per_hour:12. This means metric will be sent every 5 min.
-1. number_of_hours_pv_retention_hrs:24. This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
-1. number_of_days_for_storage:365. This the amount of days of retention in the object store.
+||Default|Description
+|---|---|---
+number_of_managed_clusters | 100
+number_of_master_node_in_hub_cluster| 3
+number_of_addn_worker_nodes| 47 | We assume these are above the base number: 3
+number_of_vcore_per_node| 16
+number_of_application_pods_per_node| 20| This is for the application and not ACM/Openshift workload.
+number_of_namespaces| 20 | These are namespaces that will be created by the customer outside what is created by ACM/Openshift workload.
+number_of_container_per_pod | 1 | Do not change this as of now. 
+number_of_samples_per_hour |12 | This means metric will be sent every 5 min.
+number_of_hours_pv_retention_hrs| 24 | This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
+number_of_days_for_storage| 365 | This the amount of days of retention in the object store.
 
-#### Or
+#### Option 2
+
 1. Number of timeseries from Setup #2 above
 1. number_of_samples_per_hour:12. This means metric will be sent every 5 min.
 1. number_of_hours_pv_retention_hrs:24. This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
@@ -44,11 +52,6 @@ We need the following information to calculate the resources required to run Obs
     1. Disk needed for PVs (volume of data stored is dictated by settings in MultiCluster Observability CR)
     1. Storage needed for Object store (volume of data stored is dictated by settings in MultiCluster Observability CR)
 
-### Calculator
-- Use this [pythonNotebook](/calculation/ObsSizingTemplate.ipynb).
-- Substitute the values in the notebook under section:
-`Critical Input Parameters to Size` with values described above.
-- Then run the notebook. It will produce the recommendations.
 ## ACM Sizing
 We need the following information to calculate the resources required to run ACM. Observability sizing is `not` included here.
 
