@@ -1,14 +1,14 @@
 # ACM Capacity-planning
-Our goal is to helps to create Capacity recommendation for ACM and Capacity recommendation for ACM Observability only.
-Need for capacity planning greatly varies. It depends on the scenario as explained below:
+Our goal is to help to create capacity recommendations for ACM and capacity recommendations for ACM Observability only.
+Needs for capacity planning varies greatly. It depends on the scenario as explained below:
 
 
 
 ||Setup|Action|Red Hat recommends
 |---|---|---|---|
-|1.|Existing (brown field) set up: ACM hub is running with a few real clusters being managed under it| Use [ACM Inspector](https://github.com/bjoydeep/acm-inspector) to extract data out of the system.|ACM team can recommend based on this output and number of clusters the Hub will have to manage etc. This is a fairly quick `manual` process for a now - a tool will be shortly published.|
-|2.|No ACM running (green field) but clusters that would be managed exists| Use [Metrics Extractor](https://github.com/stolostron/multicluster-observability-operator/tree/main/tools/simulator/metrics-collector/metrics-extractor) to extract the metrics out of the system. Use [Search resource extractor](https://github.com/stolostron/search-v2-operator/blob/main/tools/resource-extractor.sh) to extract the search objects that would be collected.| ACM team can size Observability & Search & ACM management needs based on this data and number of clusters it will manage etc. Observability sizings can be done using this data and [this notebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount.ipynb). We are working on a similar tool for search.|
-|3.|No ACM running (green field) and clusters that would be managed does not exist| Proceed to read below.| This the most complex case of all.|
+|1.|Existing (brown-field) set up: ACM hub is running with real clusters being managed under it| Use [ACM Inspector](https://github.com/bjoydeep/acm-inspector) to extract data out of the system.|ACM team can recommend based on this output and number of clusters the hub will have to manage etc. This is a fairly quick `manual` process for a now - a tool will be shortly published.|
+|2.|No ACM running (green-field) but clusters that would be managed exists| Use [Metrics Extractor](https://github.com/stolostron/multicluster-observability-operator/tree/main/tools/simulator/metrics-collector/metrics-extractor) to extract the metrics out of the system. Use [Search resource extractor](https://github.com/stolostron/search-v2-operator/blob/main/tools/resource-extractor.sh) to extract the search objects that would be collected.| ACM team can size Observability & Search & ACM management needs based on this data and number of clusters it will manage etc. Observability sizings can be done using this data and [this notebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount.ipynb). We are working on a similar tool for search.|
+|3.|No ACM running (green-field) and clusters that would be managed do not exist| Proceed to read below.| This the most complex case of all.|
 
 ## ACM Observability Sizing
 
@@ -35,7 +35,7 @@ We need the following information to calculate the resources required to run Obs
 1. number_of_days_for_storage:365. This the amount of days of retention in the object store.
 
 ### Methodology of Calculation
-1. Firstly we have to calculate how many time series do we need to persist. This is calculated in 2 steps.
+1. First, we have to calculate how many time series will we need to persist. This is calculated in 2 steps.
     1. Calculated Number of time series for Base 3M+3W deployment for a Cluster (based on lab data)
     1. Calcluated Number of Time series for Additional Worker Nodes
 1. Then from total number of time series, we infer
@@ -64,7 +64,7 @@ We need the following information to calculate the resources required to run ACM
 
 
 ### Methodology of calculation
-Each managed cluster and ACM applications and policies created on it creates corresponding objects on the Kubernetes APIServer of the ACM hub. As the number of managed cluster and corresponding applications and policies grow, the load on the Kubernetes APIServer increases. There is a finite limit on how big this footprint on APIServer can be - this is mainly governed by the size of database backing the APIServer ie etcd.
+Each managed cluster using ACM applications and policies created on it creates corresponding objects on the Kubernetes APIServer of the ACM hub. As the number of managed cluster and corresponding applications and policies grow, the load on the Kubernetes APIServer increases. There is a finite limit on how big this footprint on APIServer can be - this is mainly governed by the size of ETCD database backing the APIServer.
 
 1. Check if the specified load profile is in danger of crossing this limit. That will merit more than 1 ACM hub
 1. Check if the specified load profile merits a highly performant etcd system backed ie backed by NVMe disks
@@ -72,4 +72,4 @@ Each managed cluster and ACM applications and policies created on it creates cor
 1. If topology of Hub Server is 3M, check for corresponding data samples to size/project.
 
 ### Calculator
-This is manual as of now. Please reach out the Engineering team for this.
+This is manual as of now. Please reach out the RHACM Engineering team for this.
