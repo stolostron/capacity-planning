@@ -10,6 +10,22 @@ Needs for capacity planning varies greatly. It depends on the scenario as explai
 |2.|No ACM running (green-field) but clusters that would be managed exists| Use [Metrics Extractor](https://github.com/stolostron/multicluster-observability-operator/tree/main/tools/simulator/metrics-collector/metrics-extractor) to extract the metrics out of the system. Use [Search resource extractor](https://github.com/stolostron/search-v2-operator/blob/main/tools/resource-extractor.sh) to extract the search objects that would be collected.| ACM team can size Observability & Search & ACM management needs based on this data and number of clusters it will manage etc. Observability sizings can be done using this data and [this notebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount.ipynb). We are working on a similar tool for search.|
 |3.|No ACM running (green-field) and clusters that would be managed do not exist| Proceed to read below.| This the most complex case of all.|
 
+# ACM Domain Knowledge
+
+ Below is a causal diagram of ACM from standpoint of scalability. This is definitely `not a full complete ACM Causal diagram`. That would be much more complex. Let us take a moment to review this figure and get the key idea behind this.
+![Causal Diagram describing ACM Scalability Model](./images/ACMScalabilityCausalDAG.png)
+
+The big black dots are key drivers of ACM sizing along with the number of clusters it is managing. In other words, if we know the :
+- Num of apps & policies (ie how many applications and policies are defined on the cluster) and this depends on the cluster size. For the sake of brevity this node represents both applications and policies. So this works if there is only applications, or only policies or both. 
+- Time series count (depends on how large the cluster is and what kind of work is running on them)
+- Resoure count (depends on how large the cluster is and what kind of work is running on them)
+ACM scaling model is `conditionally independent of the real cluster size`. Ofcourse the number of clusters is still important. You could appreciate that given this model, when we do real performance measurement, we can simulate/create a number of clusters with any size (could be kind cluster, could be Single Node OpenShift clusters) than clusters of specific sizes. It is much simpler to do the former instead of the latter.
+
+So, to trace one line of the flow end to end:
+`Num of apps & policies` drives the `API Server Object target count and size` which in turn drives load on the `ACM App & Policy Controllers`. The `ACM App & Policy Controllers` are also influenced by the `Cluster Count` - ie number of clusters - into which the applications and policies these have to be replicated to. These in turn creates resources on the `Kube API Server`. These resources are created in `etcd`. Therefore etcd health is one of the key drivers of `ACM Health`. And `etcd` health is also dependent on `Network health` and `Disk health`.
+
+This helps us to understand the data needed to determine the ACM Hub Cluster size.
+
 ## ACM Observability Sizing
 
 ### Inputs Needed
