@@ -31,7 +31,7 @@ This helps us to understand the data needed to determine the ACM Hub Cluster siz
 ### Inputs Needed
 We need the following information to calculate the resources required to run Observability on top of ACM.
 
-#### Either
+#### Scenario - 1
 
 1. number_of_managed_clusters: say 100
 1. number_of_master_node_in_hub_cluster: say 3
@@ -44,11 +44,24 @@ We need the following information to calculate the resources required to run Obs
 1. number_of_hours_pv_retention_hrs:24. This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
 1. number_of_days_for_storage:365. This the amount of days of retention in the object store.
 
-#### Or
+- Use this [pythonNotebook](./calculation/ObsSizingTemplate-Rev1.ipynb).
+- Substitute the values in the notebook under section:
+`Critical Input Parameters to Size` with values described above.
+- Then run the notebook. It will produce the recommendations.
+- This [pythonNotebook](./calculation/ObsSizingTemplate.ipynb) is deprecated.
+
+#### Scenario - 2
+**This produces more accurate results than [Scenario - 1](#scenario---1) above.**
 1. Number of timeseries from Setup #2 above
 1. number_of_samples_per_hour:12. This means metric will be sent every 5 min.
 1. number_of_hours_pv_retention_hrs:24. This means that data will retained in PV for 24 hrs which is standard. Do not reduce this number for production systems.
 1. number_of_days_for_storage:365. This the amount of days of retention in the object store.
+
+- Use this [pythonNotebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount-Rev1.ipynb).
+- Substitute the values in the notebook under section:
+`Critical Input Parameters to Size` with values described above.
+- Then run the notebook. It will produce the recommendations.
+- This [pythonNotebook](./calculation/ObsSizingTemplateGivenTimeSeriesCount.ipynb) is deprecated.
 
 ### Methodology of Calculation
 1. First, we have to calculate how many time series will we need to persist. This is calculated in 2 steps.
@@ -60,11 +73,7 @@ We need the following information to calculate the resources required to run Obs
     1. Disk needed for PVs (volume of data stored is dictated by settings in MultiCluster Observability CR)
     1. Storage needed for Object store (volume of data stored is dictated by settings in MultiCluster Observability CR)
 
-### Calculator
-- Use this [pythonNotebook](/calculation/ObsSizingTemplate.ipynb).
-- Substitute the values in the notebook under section:
-`Critical Input Parameters to Size` with values described above.
-- Then run the notebook. It will produce the recommendations.
+
 ## ACM Sizing
 We need the following information to calculate the resources required to run ACM. Observability sizing is `not` included here.
 
