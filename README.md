@@ -13,7 +13,7 @@ Needs for capacity planning varies greatly. It depends on the scenario as explai
 # ACM Domain Knowledge
 
  Below is a causal diagram of ACM from standpoint of scalability. This is definitely `not a full complete ACM Causal diagram`. That would be much more complex. Let us take a moment to review this figure and get the key idea behind this.
-![Causal Diagram describing ACM Scalability Model](./images/ACMScalabilityCausalDAG.png)
+![Causal Diagram describing ACM Scalability Model](./images/ACMScalabilitySizingDAG.png)
 
 The big black dots are key drivers of ACM sizing along with the number of clusters it is managing. In other words, if we know the :
 - Num of apps & policies (ie how many applications and policies are defined on the cluster) and this depends on the cluster size. For the sake of brevity this node represents both applications and policies. So this works if there is only applications, or only policies or both. 
