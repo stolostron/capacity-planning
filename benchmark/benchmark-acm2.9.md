@@ -24,7 +24,7 @@ Will finally get 4 groups data of managed cluster resource usage, each group con
 
 ## Benchmark
 
-CPU usage (millicore) of each agent
+**CPU usage (millicore) of each agent**
 
 | Pod                             | idle       | 10 applications | 2 policies (each contains 3 config policy) | 100 manifestworks |
 |----------------------------------|------------|-----------------|--------------------------------------------|---------------------|
@@ -39,9 +39,9 @@ CPU usage (millicore) of each agent
 | cluster-proxy-service-proxy       | 0.1        | 0.1             | 0.1                                        | 0.1                 |
 | endpoint-observability-operator   | 0.6        | 0.6             | 0.6                                        | 0.6                 |
 | metrics-collector-deployment      | 0.5        | 0.6             | 0.5                                        | 0.6                 |
+| **Total**                        | **27.1**   | **28.6**        | **25.4**                                   | **35.2**            |
 
-
-Memory usage (MB) of each agent
+**Memory usage (MB) of each agent**
 
 | Pod                             | idle       | 10 applications | 2 policies (each contains 3 config policy) | 100 manifestworks |
 |----------------------------------|------------|-----------------|--------------------------------------------|---------------------|
@@ -56,6 +56,12 @@ Memory usage (MB) of each agent
 | cluster-proxy-service-proxy       | 19.6       | 20.5            | 20.5                                       | 20.5                |
 | endpoint-observability-operator   | 41.3       | 42.7            | 42.7                                       | 43.0                |
 | metrics-collector-deployment      | 50.7       | 53.4            | 54.1                                       | 54.5                |
+| **Total**                        | **567.9**  | **572.9**       | **578.2**                                  | **585.5**           |
 
-_Note_, there's almost no impact on managed cluster API server before and after ACM deployed, before and after ACM workload deployed. Details see the metrics in 
-https://drive.google.com/drive/folders/1jkUGD0mkYq4ibqYN2IK9mqougb8ZuW4g. 
+**API server**
+
+There's almost no impact on the managed cluster API server:
+- The `apirequestcount` did not increase much before and after ACM deployed.
+- The API server related metrics did not increase much before and after the ACM workload was deployed, the peek value only occurred when deploying 100 manifest works. For example, [apiserver-resource-count](https://drive.google.com/drive/folders/1eopRGJyQQ3JFHbxDFwGnmhRKT-k1MWZC), [apiserver-request-count-by-object](https://drive.google.com/drive/folders/1eopRGJyQQ3JFHbxDFwGnmhRKT-k1MWZC), [kubeapi-cpu-usage](https://drive.google.com/drive/folders/18LWvcIbDk7-EDd8x2vDpkmN9uJRWipe1), [kubeapi-mem-usage-wss](https://drive.google.com/drive/folders/18LWvcIbDk7-EDd8x2vDpkmN9uJRWipe1)
+
+_Note_, the original metrics are collected at https://drive.google.com/drive/folders/1jkUGD0mkYq4ibqYN2IK9mqougb8ZuW4g. 
