@@ -20,9 +20,13 @@ This doc provides the testing steps and benchmark data of ACM agents.
 
 Prepare TWO ACM 2.9 environments, each has 1 hub + 2 managed clusters, follow the testing steps in [acm-workload](https://github.com/haoqing0110/acm-workload/blob/main/README.md) to deploy workload and get resource usage of each agent. 
 
-Will finally get 4 groups data of managed cluster resource usage, each group contains 4 use cases (idle, creating 10 applications, creating 6 config polies and creating 100 manifestworks). Calculate the average as the result. 
+We will finally get 4 groups of data on managed cluster resource usage, each group contains 4 use cases (idle, creating 10 applications, creating 6 config policies, and creating 100 manifestworks). Calculate the average as a result. 
 
 ## Benchmark
+
+**_Note_**
+- Each addon below can be turned on/off on demand, curate which addon(s) to leverage, to control the footprint.
+- The original metrics are collected at https://drive.google.com/drive/folders/1jkUGD0mkYq4ibqYN2IK9mqougb8ZuW4g. 
 
 **CPU usage (millicore) of each agent**
 
@@ -64,4 +68,3 @@ There's almost no impact on the managed cluster API server:
 - The `apirequestcount` did not increase much before and after ACM deployed.
 - The API server related metrics did not increase much before and after the ACM workload was deployed, the peek value only occurred when deploying 100 manifest works. For example, [apiserver-resource-count](https://drive.google.com/drive/folders/1eopRGJyQQ3JFHbxDFwGnmhRKT-k1MWZC), [apiserver-request-count-by-object](https://drive.google.com/drive/folders/1eopRGJyQQ3JFHbxDFwGnmhRKT-k1MWZC), [kubeapi-cpu-usage](https://drive.google.com/drive/folders/18LWvcIbDk7-EDd8x2vDpkmN9uJRWipe1), [kubeapi-mem-usage-wss](https://drive.google.com/drive/folders/18LWvcIbDk7-EDd8x2vDpkmN9uJRWipe1)
 
-_Note_, the original metrics are collected at https://drive.google.com/drive/folders/1jkUGD0mkYq4ibqYN2IK9mqougb8ZuW4g. 
