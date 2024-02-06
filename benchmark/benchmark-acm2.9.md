@@ -26,45 +26,45 @@ We will finally get 4 groups of data on managed cluster resource usage, each gro
 
 **_Note_**
 - Each addon below can be turned on/off on demand, curate which addon(s) to leverage, to control the footprint.
-- The original metrics are collected at https://drive.google.com/drive/folders/1jkUGD0mkYq4ibqYN2IK9mqougb8ZuW4g. 
+- The original metrics are collected at https://drive.google.com/drive/folders/1Dv8Q_8q1wDI3nuvMMeecR6nP60W6judw. 
 
 **CPU usage (millicore) of each agent**
 
-| Pod                             | idle       | 10 applications | 2 policies (each contains 3 config policy) | 100 manifestworks |
-|----------------------------------|------------|-----------------|--------------------------------------------|---------------------|
-| klusterlet                       | 2.0        | 1.9             | 1.9                                        | 1.9                 |
-| klusterlet-agent                 | 4.2        | 4.4             | 4.1                                        | 13.2                |
-| klusterlet-addon-workmgr         | 1.1        | 1.1             | 1.1                                        | 1.1                 |
-| application-manager              | 2.2        | 4.6             | 2.2                                        | 2.2                 |
-| klusterlet-addon-search          | 12.0       | 12.8            | 12.4                                       | 13.0                |
-| config-policy-controller         | 0.9        | 1.0             | 1.0                                        | 1.0                 |
-| governance-policy-framework      | 1.0        | 1.0             | 1.0                                        | 1.0                 |
-| cluster-proxy-proxy-agent         | 0.5        | 0.5             | 0.5                                        | 0.5                 |
-| cluster-proxy-service-proxy       | 0.1        | 0.1             | 0.1                                        | 0.1                 |
-| endpoint-observability-operator   | 0.6        | 0.6             | 0.6                                        | 0.6                 |
-| metrics-collector-deployment      | 0.5        | 0.6             | 0.5                                        | 0.6                 |
-| **Total**                        | **27.1**   | **28.6**        | **25.4**                                   | **35.2**            |
+| Pod                            | no ACM   | idle    | 10 applications | 2 policies (each contains 3 config policy) | 100 manifestworks |
+|--------------------------------|----------|---------|-----------------|--------------------------------------------|-------------------|
+| klusterlet                     |          | 2.1     | 2.1             | 2.1                                        | 2.1               |
+| klusterlet-agent               |          | 4.5     | 4.7             | 4.6                                        | 14.1              |
+| klusterlet-addon-workmgr       |          | 1.3     | 1.3             | 1.3                                        | 1.3               |
+| application-manager            |          | 2.3     | 5.0             | 2.3                                        | 2.3               |
+| klusterlet-addon-search        |          | 12.3    | 12.1            | 12.2                                       | 12.9              |
+| config-policy-controller       |          | 1.0     | 1.0             | 1.1                                        | 1.0               |
+| governance-policy-framework    |          | 1.0     | 1.1             | 1.1                                        | 1.0               |
+| cluster-proxy-proxy-agent      |          | 0.6     | 0.5             | 0.6                                        | 0.5               |
+| cluster-proxy-service-proxy    |          | 0.1     | 0.1             | 0.1                                        | 0.1               |
+| endpoint-observability-operator|          | 0.7     | 0.7             | 0.7                                        | 0.7               |
+| metrics-collector-deployment   |          | 0.5     | 0.6             | 0.5                                        | 0.6               |
+| **Total**                      |          |**26.35**| **29**          | **26.475**                                 | **36.575**        |
+| | | | | | |
+| kube api server                | 244.225  | 256.7   | 256.3           | 255.475                                    | 278.35            |
+| kubelet                        | 121.85   | 131.775 | 137.425         | 132.475                                    | 186.225           |
 
 **Memory usage (MB) of each agent**
 
-| Pod                             | idle       | 10 applications | 2 policies (each contains 3 config policy) | 100 manifestworks |
-|----------------------------------|------------|-----------------|--------------------------------------------|---------------------|
-| klusterlet                       | 50.7       | 52.7            | 52.8                                       | 52.9                |
-| klusterlet-agent                 | 71.0       | 73.2            | 72.8                                       | 78.8                |
-| klusterlet-addon-workmgr         | 42.6       | 44.5            | 44.8                                       | 44.9                |
-| application-manager              | 31.4       | 55.4            | 52.3                                       | 52.9                |
-| klusterlet-addon-search          | 100.4      | 103.9           | 103.3                                      | 104.5               |
-| config-policy-controller         | 66.1       | 68.5            | 70.4                                       | 69.6                |
-| governance-policy-framework      | 60.9       | 63.7            | 69.1                                       | 68.5                |
-| cluster-proxy-proxy-agent         | 33.2       | 35.4            | 35.4                                       | 35.4                |
-| cluster-proxy-service-proxy       | 19.6       | 20.5            | 20.5                                       | 20.5                |
-| endpoint-observability-operator   | 41.3       | 42.7            | 42.7                                       | 43.0                |
-| metrics-collector-deployment      | 50.7       | 53.4            | 54.1                                       | 54.5                |
-| **Total**                        | **567.9**  | **572.9**       | **578.2**                                  | **585.5**           |
-
-**API server**
-
-There's almost no impact on the managed cluster API server:
-- The `apirequestcount` did not increase much before and after ACM deployed.
-- The API server related metrics did not increase much before and after the ACM workload was deployed, the peek value only occurred when deploying 100 manifest works. For example, [apiserver-resource-count](https://drive.google.com/drive/folders/1eopRGJyQQ3JFHbxDFwGnmhRKT-k1MWZC), [apiserver-request-count-by-object](https://drive.google.com/drive/folders/1eopRGJyQQ3JFHbxDFwGnmhRKT-k1MWZC), [kubeapi-cpu-usage](https://drive.google.com/drive/folders/18LWvcIbDk7-EDd8x2vDpkmN9uJRWipe1), [kubeapi-mem-usage-wss](https://drive.google.com/drive/folders/18LWvcIbDk7-EDd8x2vDpkmN9uJRWipe1)
+| Pod                            | no ACM   | idle    | 10 applications | 2 policies (each contains 3 config policy) | 100 manifestworks |
+|-------------------------------|----------|---------|-----------------|--------------------------------------------|-------------------|
+| klusterlet                    |          | 49.9    | 51.1            | 51.4                                       | 51.5              |
+| klusterlet-agent              |          | 70.9    | 73.0            | 72.6                                       | 78.6              |
+| klusterlet-addon-workmgr      |          | 43.6    | 45.2            | 45.3                                       | 45.5              |
+| application-manager           |          | 35.2    | 55.6            | 51.3                                       | 51.7              |
+| klusterlet-addon-search       |          | 95.4    | 100.0           | 99.7                                       | 102.8             |
+| config-policy-controller      |          | 71.9    | 73.1            | 77.5                                       | 75.8              |
+| governance-policy-framework   |          | 61.3    | 63.1            | 72.3                                       | 71.7              |
+| cluster-proxy-proxy-agent     |          | 35.6    | 37.1            | 37.1                                       | 37.1              |
+| cluster-proxy-service-proxy   |          | 19.5    | 20.0            | 20.0                                       | 20.0              |
+| endpoint-observability-operator|          | 41.9    | 42.3            | 42.4                                       | 42.5              |
+| metrics-collector-deployment  |          | 53.3    | 54.4            | 54.2                                       | 54.5              |
+| **Total**                     |          | **578.4**| **614.7**      | **623.5**                                  | **631.5**         |
+| | | | | | |
+| kube api server (GB)          | 3.7      | 4.0     | 3.9             | 4.1                                        | 4.1               |
+| kubelet                       | 428.3    | 438.6   | 445.7           | 438.6                                      | 494.9             |
 
