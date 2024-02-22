@@ -18,7 +18,7 @@ This doc provides the testing steps and benchmark data of ACM agents.
 
 ## Testing flow
 
-Prepare TWO ACM 2.9 environments, each has 1 hub + 2 managed clusters, follow the testing steps in [acm-workload](https://github.com/haoqing0110/acm-workload/blob/main/README.md) to deploy workload and get resource usage of each agent. 
+Prepare TWO ACM 2.9 environments, each has 1 hub + 2 managed clusters, follow the testing steps in [acm-workload](https://github.com/haoqing0110/acm-workload/blob/acm-2.9/README.md) to deploy workload and get resource usage of each agent. 
 
 We will finally get 4 groups of data on managed cluster resource usage, each group contains 4 use cases (idle, creating 10 applications, creating 6 config policies, and creating 100 manifestworks). Calculate the average as a result. 
 
