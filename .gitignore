@@ -1,3 +1,4 @@
 private
 calculation/.ipynb_checkpoints
 .DS_Store
+output/*.csv
